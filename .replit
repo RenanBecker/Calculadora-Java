@@ -1,2 +1,2 @@
 language = "java10"
-run = "javac calculadora.java"
+run = "javac calculadora.java && java calculadora"
