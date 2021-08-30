@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class calculadora {
   public static void main(String[] args){
-    int primeiro;
-    int segundo;
-    int resultado;
+    double primeiro;
+    double segundo;
+    double resultado;
     char novamente = 'a';
     char operacao = 'a';
 
@@ -12,7 +12,7 @@ public class calculadora {
     do {
       Scanner ler = new Scanner(System.in);
       System.out.println("Digite o primeiro número da operação");
-      primeiro = ler.nextInt();
+      primeiro = ler.nextDouble();
       while((operacao != '+') && (operacao != '-') && (operacao != '*') && (operacao != '/'))
       {
         System.out.println(
@@ -24,7 +24,7 @@ public class calculadora {
           }
         }
       System.out.println("Digite o segundo número da operação");
-      segundo = ler.nextInt();
+      segundo = ler.nextDouble();
       switch (operacao) {
         case '+':
           resultado = primeiro + segundo;
