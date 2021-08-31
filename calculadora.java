@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class calculadora {
   public static void main(String[] args){
@@ -11,10 +12,17 @@ public class calculadora {
     System.out.println("Bem vindo ao programa Calculadora");
     do {
       Scanner ler = new Scanner(System.in);
-      System.out.println("Digite o primeiro número da operação");
-      primeiro = ler.nextDouble();
-      while((operacao != '+') && (operacao != '-') && (operacao != '*') && (operacao != '/'))
-      {
+      while(true){
+        System.out.println("Digite o primeiro número da operação");
+        try{
+        primeiro = ler.nextDouble();
+        break;
+        } catch (Exception e) {
+          System.out.print("Por favor digite apenas números\n");
+          ler.nextLine();
+        }
+      }
+      while((operacao != '+') && (operacao != '-') && (operacao != '*') && (operacao != '/')){
         System.out.println(
             "Escolha a operação que deseja realizar\n+ para somar\n- para subtrair\n* para multiplicar\n/ para dividir");
         operacao = ler.next().charAt(0);
@@ -22,9 +30,17 @@ public class calculadora {
             System.out.print("\033[H\033[2J"); 
             System.out.println("Escolha invalida");
           }
+      }
+      while(true){
+        System.out.println("Digite o segundo número da operação");
+        try{
+        segundo = ler.nextDouble();
+        break;
+        } catch (Exception e) {
+          System.out.print("Por favor digite apenas números\n");
+          ler.nextLine();
         }
-      System.out.println("Digite o segundo número da operação");
-      segundo = ler.nextDouble();
+      }
       switch (operacao) {
         case '+':
           resultado = primeiro + segundo;
