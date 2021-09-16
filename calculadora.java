@@ -1,8 +1,16 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class calculadora {
 
 	static int menu() {
+		menus();
+		int op = checa();
+		return op;
+	}
+
+	
+	static void menus() {
 		System.out.println("\n=== MENU ===");
 		System.out.println("(1) Soma");
 		System.out.println("(2) Multiplicação");
@@ -12,9 +20,22 @@ public class calculadora {
 		System.out.println("(6) Potência");
 		System.out.println("(0) Sair");
 		System.out.print("\nOpção: ");
-		Scanner leitor = new Scanner(System.in);
-		int op = leitor.nextInt();
-		return op;
+	}
+	
+	static int checa() {
+		int numero;
+		Scanner ler = new Scanner(System.in);
+		while (true) {
+			try {
+				numero = ler.nextInt();
+				break;
+			} catch (Exception e) {
+				System.out.print("Por favor digite apenas números\n");
+				menus();
+				ler.nextLine();
+			}
+		}
+		return numero;
 	}
 
 	static double soma(double n1, double n2) {
@@ -48,13 +69,37 @@ public class calculadora {
 		do {
 			opcao = menu();
 			if (opcao >= 1 && opcao <= 4 || opcao == 6) {
-				System.out.print("Primeiro Numero: ");
-				n1 = leitor.nextDouble();
-				System.out.print("Segundo Numero: ");
-				n2 = leitor.nextDouble();
+				while (true) {
+					System.out.println("Digite o primeiro número da operação");
+					try {
+						n1 = leitor.nextDouble();
+						break;
+					} catch (Exception e) {
+						System.out.print("Por favor digite apenas números\n");
+						leitor.nextLine();
+					}
+				}
+				while (true) {
+					System.out.println("Digite o segundo número da operação");
+					try {
+						n2 = leitor.nextDouble();
+						break;
+					} catch (Exception e) {
+						System.out.print("Por favor digite apenas números\n");
+						leitor.nextLine();
+					}
+				}
 			} else if (opcao == 5) {
-				System.out.print("Numero: ");
-				n1 = leitor.nextDouble();
+				while (true) {
+					System.out.println("Digite o número da operação");
+					try {
+						n1 = leitor.nextDouble();
+						break;
+					} catch (Exception e) {
+						System.out.print("Por favor digite apenas números\n");
+						leitor.nextLine();
+					}
+				}
 			}
 			boolean apresentaResultado = true;
 			switch (opcao) {
@@ -91,6 +136,7 @@ public class calculadora {
 				System.out.println("Resultado: " + String.format("%.1f", resultado));
 			}
 		} while (opcao != 0);
+		System.out.println("Obrigado volte sempre");
 	}
 
 }
