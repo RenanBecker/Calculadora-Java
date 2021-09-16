@@ -2,68 +2,141 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class calculadora {
-  public static void main(String[] args){
-    double primeiro;
-    double segundo;
-    double resultado;
-    char novamente = 'a';
-    char operacao = 'a';
 
-    System.out.println("Bem vindo ao programa Calculadora");
-    do {
-      Scanner ler = new Scanner(System.in);
-      while(true){
-        System.out.println("Digite o primeiro número da operação");
-        try{
-        primeiro = ler.nextDouble();
-        break;
-        } catch (Exception e) {
-          System.out.print("Por favor digite apenas números\n");
-          ler.nextLine();
-        }
-      }
-      while((operacao != '+') && (operacao != '-') && (operacao != '*') && (operacao != '/')){
-        System.out.println(
-            "Escolha a operação que deseja realizar\n+ para somar\n- para subtrair\n* para multiplicar\n/ para dividir");
-        operacao = ler.next().charAt(0);
-          if((operacao != '+') && (operacao != '-') && (operacao != '*') && (operacao != '/')){
-            System.out.print("\033[H\033[2J"); 
-            System.out.println("Escolha invalida");
-          }
-      }
-      while(true){
-        System.out.println("Digite o segundo número da operação");
-        try{
-        segundo = ler.nextDouble();
-        break;
-        } catch (Exception e) {
-          System.out.print("Por favor digite apenas números\n");
-          ler.nextLine();
-        }
-      }
-      switch (operacao) {
-        case '+':
-          resultado = primeiro + segundo;
-          System.out.println(primeiro + " + " + segundo + " = " + resultado);
-          break;
-        case '-':
-          resultado = primeiro - segundo;
-          System.out.println(primeiro + " - " + segundo + " = " + resultado);
-          break;
-        case '*':
-          resultado = primeiro * segundo;
-          System.out.println(primeiro + " * " + segundo + " = " + resultado);
-          break;
-        case '/':
-          resultado = primeiro / segundo;
-          System.out.println(primeiro + " / " + segundo + " = " + resultado);
-          break;
-      }
-      System.out.println("Deseja realizar outro calculo?\n s = sim\n n = não");
-      novamente = ler.next().charAt(0);
-      operacao = 'a';
-      System.out.print("\033[H\033[2J"); 
-    } while (novamente == 's');
-    System.out.println("Obrigado volte sempre");
-  }
+	static int menu() {
+		menus();
+		int op = checa();
+		return op;
+	}
+
+	
+	static void menus() {
+		System.out.println("\n=== MENU ===");
+		System.out.println("(1) Soma");
+		System.out.println("(2) Multiplicação");
+		System.out.println("(3) Subtração");
+		System.out.println("(4) Divisão");
+		System.out.println("(5) Raiz Quadrada");
+		System.out.println("(6) Potência");
+		System.out.println("(0) Sair");
+		System.out.print("\nOpção: ");
+	}
+	
+	static int checa() {
+		int numero;
+		Scanner ler = new Scanner(System.in);
+		while (true) {
+			try {
+				numero = ler.nextInt();
+				break;
+			} catch (Exception e) {
+				System.out.print("Por favor digite apenas números\n");
+				menus();
+				ler.nextLine();
+			}
+		}
+		return numero;
+	}
+
+	static double soma(double n1, double n2) {
+		return n1 + n2;
+	}
+
+	static double multiplicacao(double n1, double n2) {
+		return n1 * n2;
+	}
+
+	static double subtracao(double n1, double n2) {
+		return n1 - n2;
+	}
+
+	static double divisao(double n1, double n2) {
+		return n1 / n2;
+	}
+
+	static double raizQuadrada(double n) {
+		return Math.sqrt(n);
+	}
+
+	static double potencia(double n1, double n2) {
+		return Math.pow(n1, n2);
+	}
+
+	public static void main(String[] args) {
+		Scanner leitor = new Scanner(System.in);
+		int opcao;
+		double n1 = 0, n2 = 0, resultado = 0;
+		do {
+			opcao = menu();
+			if (opcao >= 1 && opcao <= 4 || opcao == 6) {
+				while (true) {
+					System.out.println("Digite o primeiro número da operação");
+					try {
+						n1 = leitor.nextDouble();
+						break;
+					} catch (Exception e) {
+						System.out.print("Por favor digite apenas números\n");
+						leitor.nextLine();
+					}
+				}
+				while (true) {
+					System.out.println("Digite o segundo número da operação");
+					try {
+						n2 = leitor.nextDouble();
+						break;
+					} catch (Exception e) {
+						System.out.print("Por favor digite apenas números\n");
+						leitor.nextLine();
+					}
+				}
+			} else if (opcao == 5) {
+				while (true) {
+					System.out.println("Digite o número da operação");
+					try {
+						n1 = leitor.nextDouble();
+						break;
+					} catch (Exception e) {
+						System.out.print("Por favor digite apenas números\n");
+						leitor.nextLine();
+					}
+				}
+			}
+			boolean apresentaResultado = true;
+			switch (opcao) {
+			case 0:
+				apresentaResultado = false;
+				break;
+			case 1:
+				resultado = soma(n1, n2);
+				break;
+			case 2:
+				resultado = multiplicacao(n1, n2);
+				break;
+			case 3:
+				resultado = subtracao(n1, n2);
+				break;
+			case 4:
+				resultado = divisao(n1, n2);
+				if (n2 == 0) {
+					System.out.println("Valor Inválido para o Segundo Número!");
+					apresentaResultado = false;
+				}
+				break;
+			case 5:
+				resultado = raizQuadrada(n1);
+				break;
+			case 6:
+				resultado = potencia(n1, n2);
+				break;
+			default:
+				apresentaResultado = false;
+				System.out.println("Opção Inválida!");
+			}
+			if (apresentaResultado) {
+				System.out.println("Resultado: " + String.format("%.1f", resultado));
+			}
+		} while (opcao != 0);
+		System.out.println("Obrigado volte sempre");
+	}
+
 }
