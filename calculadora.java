@@ -19,6 +19,7 @@ public class calculadora {
 		System.out.println("(5) Raiz Quadrada");
 		System.out.println("(6) Potência");
 		System.out.println("(7) Equação do Segundo Grau");
+		System.out.println("(8) Calculo de Fatorial");
 		System.out.println("(0) Sair");
 		System.out.print("\nOpção: ");
 	}
@@ -97,6 +98,26 @@ public class calculadora {
 
 	}
 	
+	static void fatorial() {
+			Scanner ler = new Scanner(System.in);
+			int fatorial, resultado;
+			
+			System.out.println("Digite o numero que deseja calcular o fatorial");
+			fatorial = (int)checa();
+			
+			resultado = 1;
+			for (int i = fatorial; i > 0; i--) {
+				resultado *= i;
+				if (i != 1) {
+				System.out.print(i + ".");
+				} else {
+					System.out.println(i);
+				}
+			}
+			System.out.println("Resultado: " + resultado);
+		}
+	
+	
 	public static void main(String[] args) {
 		Scanner leitor = new Scanner(System.in);
 		int opcao;
@@ -106,6 +127,9 @@ public class calculadora {
 		switch (opcao) {
 		case 7:
 			segundoGrau();
+			break;
+		case 8:
+			fatorial();
 			break;
 		}
 		
